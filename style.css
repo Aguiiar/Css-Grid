@@ -1,0 +1,672 @@
+body,
+p,
+h1,
+ul,
+li,
+blockquote {
+    padding: 0px;
+    margin: 0px;
+}
+
+body {
+    font-family: "Vollkorn", Georgia, serif;
+}
+
+
+li {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+img {
+    max-width: 100px;
+
+}
+
+
+/*Grid Geral*/
+
+/*3fr expandi mais os conteudos*/
+/*Tamanho das linhas vai ser automatico aqui de acordo com conteudo
+, conforme ele crescer aqui a linha vai crescendo, por isso não vamos definir*/
+.estrutura {
+    display: grid;
+    grid-template-columns: minmax(160px, 1fr) 3fr 300px;
+    grid-template-areas:
+        "header header header"
+        "sidenav content anuncios"
+        "footer footer footer"
+
+    ;
+
+}
+
+/*Aqui estou falando que abaixo disso vai aplicar o que eu
+quero*/
+@media (max-width:1200px){
+
+    /*Para testar o media quaeery usar esse código abaixo
+     body{background: blue;}
+    */
+    
+.estrutura{
+    /*Estou mudando meu grid geral caso a resolução seja
+     inferior a 1200, vai mudar a estrutura toda, em vez
+     ser a que está no principal que é o geral vai ser essa,
+     vai ser alterado*/
+    grid-template-areas:
+
+    /*Eu fazendo dessa maneira não fica um espaço em branco
+    conforme eu vou modificando, então sempre fazer assim
+    porque conforme eu vou querer diminuir a quantidade de 
+    colunas em relação a resolução vai ficando espaço em branco
+    eae para resolver isso tenho que pegar a informação (codigo)
+    que está no geral e colocar aqui e diminuir de acordo com
+    o que eu quero, exemplo abaixo:
+    
+    grid-template-columns: minmax(160px, 1fr) 3fr;
+
+    no código acima estou querendo deixar apenas duas colunas
+    quando a resolução for inferior a 1200, se eu tirar esse
+    código vai ficar o espaço em branco então tenho que deixar ele
+    ou fazer de uma outra maneira mais simples que é manter
+    o grid-template-areas: que está no principal ou seja no geral
+    porem duplicar ele no mediaquery
+    igual abaixo, esse codigo abaixo é
+    o geral é assim que está lá em cima
+    
+
+        "header header header"
+        "sidenav content anuncios"
+        "footer footer footer"
+
+        Mas eu quero que quando seja inferior a  1200 mude apenas
+        para duas colunas, então faço assim
+
+        "header header header"
+        "sidenav content content"
+        "sidenav anuncios anuncios"
+        "footer footer footer";
+
+        ou seja, podemos ver que dupliquei as palavras
+        ou seja para virar duas colunas em vez de 3
+        quando duplico aqui eu falo para expandir esse conteudo até
+        onde eu quero então vira duas em vez de três, só
+        diplicar que muda de acordo que eu quero, então o segredo
+        é duplicar
+
+        Eu estou mantendo o site ainda em três colunas porem
+        estou grudando o conteudo expandindo então acaba virando
+        o que eu quero só duplicar.
+
+
+    */
+        "header header header"
+        "sidenav content content"
+        "sidenav anuncios anuncios"
+        "footer footer footer";
+    }
+    
+
+}
+
+/*lembrando que esses negocios de resolução eu faço conforme
+o que meu site nescessita, então tenho que ver conforme cada um
+e o que nescessita.*/
+
+
+
+
+@media (max-width:600px){
+
+    /*Aqui é a mesma situação do acima vai ficar o em branco
+    Tenho que arrumar igual fiz acima colocando as colunas
+    com o código grid-tamplate-colums
+     ou usando o
+     gridtemplateareas mesmo e duplicando, porem dessa maneira iria
+     repetir muito, então como vou deixar apenas em um coluna
+     coloco apenas o código abaixo
+     
+     grid-template-columns: 100%;
+
+     Lembrando que vou fazer desse jeito quando for deixar um em
+     baixo do outro ou seja uma coluna apenas
+     */
+    .estrutura{
+        grid-template-columns: 100%;
+        grid-template-areas:
+        "header"
+        "sidenav"
+        "content"
+        "anuncios"
+        "footer";
+    }
+}
+
+
+
+/*Header*/
+.header {
+    /*Criar um gradiente usa o linear-gradient*/
+    background: linear-gradient(135deg, #000000, #000000);
+    grid-area: header;
+    padding: 30px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+}
+
+.logo {
+    max-width: 200px;
+}
+
+
+.header nav ul {
+    /*Fazendo ficar um do lado do outro, como flex os nomes do menu*/
+    display: flex;
+    /*Para quebrar*/
+    flex-wrap: wrap;
+}
+
+
+.header nav a {
+
+    /*Para ser um display line*/
+    display: block;
+    padding: 10px;
+    color: white;
+    font-size: 1.125em;
+    /*Fica opaco*/
+    background: rgba(26, 24, 24, 0.137);
+    /*Ficar com bordas arredondadas*/
+    border-radius: 5px;
+    /*Para dar uma transição no houver não ficar algo seco, ele
+    tem que está sempre aqui e não no houver*/
+    transition: 0.1s;
+
+}
+
+/*Para quando passar o mouse por cima da um efeito*/
+.header nav a:hover {
+    background: rgba(39, 35, 35, 0.5);
+}
+
+
+/*Aqui estou falando para dar o margin apos o primeiro li, porque se coloco sem o + li ele vai iniciar dando margin e não é isso
+que queremos, queremos apenas entre eles, ou seja apartir do primeiro li, foi li+li porque estou fazendo a tag li*/
+.header li+li {
+    margin-left: 30px;
+}
+
+
+/*Mediaquery do header*/
+/*Arrumando menu header com mediaQuery quando diminuir a resolução
+*/
+
+@media(max-width:600px){
+.header{
+    /*Fazendo ficar apena suma coluna*/
+    grid-template-columns: auto;
+}
+.logo{
+    /*Para separar o elemento*/
+    margin-bottom: 20px;
+}
+.header nav a {
+    /*Diminuindo o tamanho da letra para semprer caber um do lado
+    do outro*/
+    font-size: 1em;
+}
+/*Diminuindo o espaço de lado para dez o normal que coloquei 
+na resolução normal é 30*/
+.header li+li{
+    margin-left: 10px;
+}
+}
+
+
+img {
+    /*Tirando os 4px do padrão que normalmente as imagens tem
+    entre elas*/
+    display: block;
+    max-width: 100%;
+    border-radius: 5px;
+
+}
+
+.imagemFinal {
+    grid-column: 1 /-1;
+    margin: 0 auto;
+}
+
+
+/*Sidenav
+Area lateral do site com os icones
+*/
+.sidenav {
+    grid-area: sidenav;
+    /*Dando um backgroud bem clarinho de fundo*/
+    background: #fafbfc;
+    padding-top: 30px;
+
+}
+
+
+.sidenav li a {
+    /*Como por padrão eles são elementos em line*/
+    display: block;
+
+    /*Lembrando que isso tudo quando ele aumentar ou diminuir*/
+    /*Quadradinho onde vai ficar as imagens vai ter no
+    minimo 60px*/
+    min-width: 60px;
+    /*Quadradinho onde vai ficar as imagens vai ter no
+    maximo 60px*/
+    max-width: 100px;
+    /*Dando margin top lado baixo e outro lado*/
+    margin: 0 auto 30px auto;
+    background: white;
+    padding: 20px;
+    /*Deixar arredondado as bordas*/
+    border-radius: 5px;
+    /*Dando sombra*/
+    box-shadow: 5px 5px 15px 0px rgba(44, 44, 44, 0.15);
+    /*Para o houver não sair seco para ela sair mais suave*/
+    transition: .1 ease-out;
+
+}
+
+
+.sidenav li a:hover {
+    background: rgb(0, 0, 0)
+}
+
+/*MediaQuery do meu SideNav meus icones, posso fazer isso para
+qualquer coisa nos meus sites também*/
+
+/*Estou fazendo meu sidenav os itens mudarem a posição, quando
+diminuir, eles ficarem um do lado do outro e irem para cima*/
+
+/*Nesse caso os itens são lis e lis por padrão são displayblock*/
+@media(max-width:600px){
+
+    .sidenav{
+        /*Aqui estou falando que o que estorar o container na
+        horizontal, lembrando que pode ser no eixo y tbm
+        se eu quiser, estou falando para ser automatico
+        para não criar uma barra de rolagem no meu site
+        um skoll, ele cria onde estou colocando para o item, o que
+        estou mexendo, então vai ficar la onde está estourando
+        */
+        overflow-x:auto ;
+        position: relative;
+        /*Para arrastar o menu no dedo nos dispositivos 
+        moveis
+        para safari e microsofty*/
+        -webkit-overflow-scrolling: touch;
+        -ms-overflow-style: -ms-autohiding-scrollbar;
+    }
+    .sidenav::after{
+        content: '→';
+        /*Tenho que colocar absolute aqui e  relative la no 
+        mediaQuery acima onde fiz o sidenav, porque se não
+        a seta vai ficar referente ao body*/
+        position: absolute;
+        top: 5px;
+        right: 30px;
+        color: rgba(0, 0, 0, .3);
+        /*Chamando aqui a animação da seta que fiz se não
+        não funciona
+        5s é a velocidade o ease-in é o modo de animar
+        começa mais lento e fica rapido 0s para começar tempo que
+        quer que comece, infinite para ficar para sempre rodando
+        alternate faz ir do 30 para o 20 depois do 20 para o 30
+        de novo*/
+        animation: seta .5s ease-in 0s infinite alternate;
+    }
+
+    /*Criando uma animação para a seta acima*/
+
+    @keyframes seta {
+        from{
+            right: 30px;
+        }to{
+            right: 20px;
+        }
+    }
+
+    /*Como são lis e eu quero pegar esses itens, então coloco ul
+     aqui que é a classe*/
+    .sidenav ul{
+        display: flex;
+    }
+
+
+    /*Fazer o curso de flex para entender isso*/
+    .sidenav li{
+        flex: 1 0 60px;
+    }
+
+    .sidenav{
+        /*Tirando o pedding de cima e de baixo*/
+        padding: 0 30px;
+    }
+
+    .sidenav li a {
+        /*Colocando margins*/
+        margin: 30px 30px 30px 0;
+    }
+
+}
+
+/*content
+conteudo
+*/
+
+
+
+
+.content {
+    grid-area: content;
+    /*Maximo que quero que o texto que esteja dentro dele cresca
+    vai até esse tamanho no caso 900px*/
+    max-width: 900px;
+    /*Colequei esse margin: 0 auto porque sem ele fica um espaço
+    em branco pro lado
+    e não alinhado ao centro,
+    pois eu coloquei o limite que quero que cresça
+    acima, então coloco esse código abaixo para não sobrar
+    um espaço em branco desporpocional e ficar alinhando
+    ao centro*/
+    margin: 0 auto;
+    padding: 30px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 30px;
+}
+
+/*Lmebrando que o css copila de baixo para cima então sempre
+o mais importante vem primeiro assim como os mediaQuery*/
+
+/*MediaQuery do conteudo*/
+@media(max-width:750px){
+    /*Colocando apenas uma coluina para o site*/
+    .content{
+        grid-template-columns: auto;
+    }
+}
+
+
+/*criando uma classe geral para usar em varios itens no meu
+html, pois vai se repetir bastante, col-wide significa
+coluna expansivel que se expande, vai ser todos os items
+do meu html que vão se expandir pelas duas colunas
+que criei no meu conteudo*/
+.col-wide {
+    /*o conteudo que vai ser inserido Começa na primeira
+    aqui começa da primeira e vai até a ultima conforme
+    vou criando, poderia colocar um numero exato, mas caso
+    eu criei mais colunas já vai automatico, mais facil, por isso
+    coloquei -1 */
+    grid-column: 1 / -1;
+}
+
+
+
+.imagem1 {
+    /*Fazer a imagem pegar da linha três até a */
+    /*grid-row: 3 / 5;*/
+    /*Mas para não ficar contando linha, porque vai que insiro
+    mais eu tiro igual está no código a cima e coloco o span
+    igual no código abaixo, pois assim ele já expandi por duas 
+    linhas*/
+    grid-row: span 2;
+
+    /*Estou alinhando as imagens ao final para elas sempre
+    ficarem alinhadas por isso o align-self:end
+    Eixo vertical é aling, eixo horizontal é justify
+    item especifico é self e todos os itens é items*/
+    align-self: end;
+}
+
+.imagem2 {
+    /*Aqui estou alihando ao final também porque se eu diminuir
+    o texto não quero que a imagem suba, então faço aqui também*/
+    align-self: end;
+}
+
+
+/*Estilos geral do contet (conteudo)*/
+
+
+p {
+    font-size: 1.2em;
+    /*Altura da linha entre os textos*/
+    line-height: 1.6;
+    /*Espaçamento das letras*/
+    letter-spacing: -0.005em;
+    /*Deixando o texto opaco*/
+    color: rgba(0, 0, 0, .7);
+}
+
+/*Estou falando com item que está dentro de informações que é
+o p, porem não quero o primeiro p e sim o segundo*/
+.informacoes p+p {
+    /*Fazendo todos os p após o primeiro caso eu criei fiquem
+    com margin de topo de 30, estou fazendo isso
+    para não ficar apenas no primeiro, se não vai zuar
+     o meu site colocando no primeiro e dando espaçamento
+     no primeiro p*/
+    margin-top: 30px;
+}
+
+
+/*Titulo*/
+
+.titulo {
+    color: black;
+
+}
+
+.titulo h1 {
+    font-size: 3.75em;
+    /*Deixando mais grudado com a palavra de cima ou algo a cima*/
+    line-height: 1;
+    /*Peso extensidade da palavra*/
+    font-weight: 700;
+
+
+
+}
+
+
+.titulo span {
+    font-size: 0.875em;
+    font-style: italic;
+}
+
+
+/*Carateristicas
+*/
+
+.caracteristicas {
+    /*Quero um do lado do outro então uso display flex, pois
+    flex trabalha em linha*/
+    display: flex;
+    /*Alinhou ao inicio do meu flex (da div que está)*/
+    align-items: flex-start;
+}
+
+
+/* > significa que quero falar especificamente e somente com as
+divs que estão dentro de caracteristicas*/
+.caracteristicas>div {
+    width: 80px;
+    text-align: center;
+    background: black;
+    border-radius: 5px;
+    box-shadow: 5px 5px 15px 0px rgba(44, 44, 44, 0.15);
+    position: relative;
+}
+
+/*Todo span que tiver dentro de caracteristicas vai ser
+display block para pegar tudo de ponta a ponta e não fique em line
+como ele é de padrão já*/
+.caracteristicas span {
+    display: block;
+
+}
+
+/* > significa que quero falar especificamente e somente com a 
+primeira div que está dentro de caracteristicas*/
+.caracteristicas>div:first-child {
+    margin-right: 30px;
+}
+
+
+.hora {
+    color: White;
+    font-size: 3em;
+    line-height: 1;
+    margin: 10px auto;
+    padding: 5px 0;
+}
+
+/*Coloquei position relative no .caracteristicas > div e .projecao
+para resolver um vazamento que estava tendo na parte que está com
+a cor branca lá no site nessa parte que está a projeção e fixação */
+
+.Info {
+    background: white;
+    color: black;
+    /*os primeiros 0 são para dizer para não arrendondar*/
+    border-radius: 0 0 5px 5px;
+    position: relative;
+    top: 2px;
+    padding: 5px;
+}
+
+.destaque {
+    font-size: 0.875em;
+    color: black;
+    /*Não quero que esse texto aumente tanto se expanda tanto, então vou colocar um max-with,
+     não quero que fique de ponta a ponta*/
+    max-width: 16em;
+}
+
+/*Fazendo a estilização para duas classes de uma vez*/
+.citacao,
+.atributos {
+    /*Se eu tirar o align-self:start vai deixar um espaçamento para baixo no meu atributos,
+    então coloco o align-self para tirar esse espaçamento e ele começar no inicio e ficar certo, sem
+    esse espaço e se expandir*/
+    align-self: start;
+    padding: 30px;
+    border-radius: 5px;
+    /*Primeiro chega mais para o lado direito, segundo para baixo, proximo é para não ficar aquela sombra dura
+    e o ultimo é de crescer a sombra tamanho*/
+    box-shadow: 5px 5px 15px 0px rgba(44, 44, 44, 0.15);
+    /*135deg é da onde começa o gradiente, gradiente é ir do mais escuro ao mais caro e vice versa
+    então vem a cor mais forte e depois a que vai clarear*/
+    background: linear-gradient(135deg, #000000, #242020a9);
+}
+
+
+.citacao p {
+    font-size: 1.Sem;
+    font-style: italic;
+    text-align: center;
+    color: white;
+    /*Não quero que pegue de ponta a ponta e não fique aumentando, então também então uso o max-with*/
+    max-width: 500px;
+    /*Nesse exemplo que já alinhei o o texto ao centro, colocando o text-align
+     porem ele está alinhado a primeira caixa dele, ou seja
+    o que está segurando ele e não ao principal que é só eu ver no exemplo, e para realmente funcionar e ficar
+    alinhado totalmente alinhado ao conteudo principal, colocando o margin 0 auto*/
+    margin: 0 auto;
+
+}
+
+
+.atributos li {
+
+    color: white;
+    font-family: 'Courier, monospace';
+    font-size: 1.125em;
+    padding: 15px;
+
+
+}
+
+/*Só que não quero colocar as linhas em baixo do ultimo item pois fica errado, então uso aquele esquema
+do li+li ou seja para falar só com o ali que vem depois do ali e como no ultimo não vai ter depois um
+outro li para inserir lá ele fica vazio, pois só vai onde tiver um li depois do li*/
+.atributos li+li {
+    /*Criando as linhas que vão ficar em baixo do nome*/
+    border-top: 2px solid #dfddddb6;
+}
+
+
+.destaque>span {
+    font-style: italic;
+    font-size: 16px;
+    color: rgba(0, 0, 0, 0.692);
+}
+
+.textLittle {
+    font-size: 15px;
+    color: white;
+    font-style: italic;
+    font-weight: 500;
+
+
+
+}
+
+/*Anuncios
+*/
+
+
+.anuncios {
+    grid-area: anuncios;
+    background: #fafbfc;
+    display: grid;
+    align-content: start;
+    padding: 30px;
+    /*Lmebrando que o gap só dar espaço entre os elementos, então
+    preciso do padding*/
+    gap: 30px;
+    /*Fazer as imagens ficarem em duas colunas sem usar media
+    query, dependendo do tamanho já não vai ficar uma em baixo
+    da outra e sim em duas colunas, resolvendo o problema de ficar
+    estranho ou passando uma por cima da outra
+    posso resolver outros problemas com esse código também
+    quando as imagens tiverem passando uma por cima da outra
+     cobrindo
+    a outra e etc fica em duas colunas*/
+    grid-template-columns: repeat(auto-fit,minmax(150px, 1fr));
+}
+
+
+.footer {
+    grid-area: footer;
+    background: linear-gradient(135deg, #000000, #000000);
+}
+
+/*Footer
+*/
+.footer p {
+    color: white;
+    text-align: center;
+    padding: 30px;
+
+}
+
+
+
+
+/*Informação importante quando for criar um site vai ter um grid para a estrutura e um outro grid para
+o conteudo e quantos você precisar*/
