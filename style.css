@@ -10,6 +10,7 @@ blockquote {
 
 body {
     font-family: "Vollkorn", Georgia, serif;
+    font-size: 13px;
 }
 
 
@@ -353,6 +354,7 @@ diminuir, eles ficarem um do lado do outro e irem para cima*/
     .sidenav{
         /*Tirando o pedding de cima e de baixo*/
         padding: 0 30px;
+        border: solid red 2px;
     }
 
     .sidenav li a {
